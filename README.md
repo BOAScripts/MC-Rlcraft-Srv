@@ -9,8 +9,8 @@ I use systemctl units to start the minecraft server when booting and send specif
 # Server info
 
 VMWare - headless Ubuntu server 22.04:
- - 2 CPU threads
- - 8GB RAM
+ - 4 CPU threads
+ - 10GB RAM
  - 80GB Storage
  - Bridged connection
 
@@ -32,6 +32,7 @@ sudo apt-get install nano
 sudo apt-get install python3.11
 sudo apt-get install git
 sudo apt-get install make
+sudo apt-get install cron
 # mcrcon
 git clone https://github.com/Tiiffi/mcrcon.git
 cd mcrcon
@@ -162,3 +163,25 @@ To be able to access my server from the outside network I need to give my `publi
 The port has to be the same as in the `server.properties`. Default is `25565`.
 
 Having the port and hostname/localip necessary for my minecraft server, I had to open the port on my modem. RTFM of the modem model.
+
+# World backup
+
+## Backup script
+
+```bash
+# as mcuser in ~
+mkdir world-backups
+nano backup.py
+```
+
+- [backup.py](./backup.py)
+
+## CRON
+
+Setup a cron job to execute the backup script every day at 7AM.
+
+```bash
+crontab -e
+0 7 * * * /usr/bin/python3 /home/mcuser/backup.py
+```
+
