@@ -164,19 +164,22 @@ The port has to be the same as in the `server.properties`. Default is `25565`.
 
 Having the port and hostname/localip necessary for my minecraft server, I had to open the port on my modem. RTFM of the modem model.
 
-# World backup
+# Maintenance
 
-## Backup script
+## World backup
+
+`mcuser@mc001:~$`
+
+### Backup script
 
 ```bash
-# as mcuser in ~
 mkdir world-backups
 nano backup.py
 ```
 
 - [backup.py](./backup.py)
 
-## CRON
+### CRON
 
 Setup a cron job to execute the backup script every day at 7AM.
 
@@ -185,3 +188,17 @@ crontab -e
 0 7 * * * /usr/bin/python3 /home/mcuser/backup.py
 ```
 
+## Auto-reboot
+
+`master@mc001:~$`
+
+### CRON
+
+Setup a cron job to reboot the server every day at 7:15AM
+
+```bash
+sudo su
+crontab -e
+10 7 * * * /usr/local/bin/mcrcon -H localhost -p McMgmt "say Server REBOOT in 5 minutes !!!" && /usr/sbin/shutdown -r +5
+# saving to /tmp is normal. cron checks for syntax errors before putting it in the correct location
+```
