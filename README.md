@@ -199,6 +199,6 @@ Setup a cron job to reboot the server every day at 7:15AM
 ```bash
 sudo su
 crontab -e
-10 7 * * * /usr/local/bin/mcrcon -H localhost -p McMgmt "say Server REBOOT in 5 minutes !!!" && /usr/sbin/shutdown -r +5
+10 7 * * * /usr/local/bin/mcrcon -H localhost -p {your-mcrcon-psw-here} "say Server REBOOT in 5 minutes !!!" && /usr/sbin/shutdown -r +5
 # saving to /tmp is normal. cron checks for syntax errors before putting it in the correct location
 ```
